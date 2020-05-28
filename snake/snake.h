@@ -1,33 +1,26 @@
 #pragma once
 #include <iostream>
-#include <vector>
 #include "snake_part.h"
-
+#define grow  true
 class snake{
 private:
-	int snake_length;
-	char way;
-	std::vector <snake_part> body;
+	int way;
+	int length;
+	snake_part* body;
 public:
 	snake() {
-		this->snake_length = 3;
-		this->way = 'r';
-		for (auto ptr = this->snake_length; ptr > 0; ptr--) {
-			body[this->snake_length - ptr].set_state_snake_part(1);
-			body[this->snake_length - ptr].set_coord_snake_part(0, ptr);
+		this->way = 0;
+		this->length = 3;
+		this->body = new snake_part(5, 5);
+		for (int ptr = 0; ptr < this->length; ptr++) {
+			this->body->move(5, 5 + ptr, grow);
 		}
 	}
-	snake(int LEN, int HX, int HY): snake_length(LEN), way('r'){
-		this->body[0].set_coord_snake_part(HX, HY);
-		for (auto ptr = LEN - 1; ptr > 0; ptr--) {
-			body[LEN - ptr].set_state_snake_part(1);
-			body[LEN - ptr].set_coord_snake_part(HX, HY-1);
-		}
+	~snake(){
+		delete this->body;
 	}
-	~snake() {};
-
-	void snake_moove();
-	void snake_set_way(char w);
-	void snake_eat(bool eat);
+	void move_to_direction(int W);
+	void move_to_direction_growup(int W);
+	void set_way_dir(int W, bool G);
 };
 
