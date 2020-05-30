@@ -19,8 +19,8 @@ public:
 	~snake(){
 		delete this->body;
 	}
-	void move_to_direction(int W);
-	void move_to_direction_growup(int W);
-	void set_way_dir(int W, bool G);
+	void move_to_direction_grow(int W, bool G);
+	int get_length();
+	int get_way();
 };
 
