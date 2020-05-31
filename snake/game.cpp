@@ -11,13 +11,13 @@ void game::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	sf::Color color = sf::Color(200, 100, 200);
 
 	sf::RectangleShape shape(sf::Vector2f(fieldSIZE, fieldSIZE));
-	shape.setOutlineThickness(2.f);
+	shape.setOutlineThickness(1.f);
 	shape.setOutlineColor(color);
 	shape.setFillColor(sf::Color::Transparent);
 	target.draw(shape, states);
 
-	shape.setSize(sf::Vector2f(pxCELL_SIZE - 2, pxCELL_SIZE - 2));
-	shape.setOutlineThickness(2.f);
+	shape.setSize(sf::Vector2f(pxCELL_SIZE, pxCELL_SIZE));
+	shape.setOutlineThickness(1.f);
 	shape.setOutlineColor(color);
 	shape.setFillColor(sf::Color::Transparent);
 
@@ -28,7 +28,7 @@ void game::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 		text.setFillColor(color);
 		text.setString(std::to_string(elements[ptr]));
 		if (elements[ptr] == 0) {
-			sf::Vector2f position(ptr % fieldSIZE * pxCELL_SIZE + 10.f, ptr / fieldSIZE * pxCELL_SIZE + 10.f);
+			sf::Vector2f position(ptr % fieldSIZE * pxCELL_SIZE + 50.f, ptr / fieldSIZE * pxCELL_SIZE + 50.f);
 			shape.setPosition(position);
 			text.setPosition(position.x + 30.f + (elements[ptr] < 10 ? 15.f : 0.f), position.y + 25.f);
 			target.draw(shape, states);

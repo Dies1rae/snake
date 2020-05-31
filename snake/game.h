@@ -2,10 +2,10 @@
 #include "SFML/Graphics.hpp"
 
 //base sizes in const int
-const int fieldSIZE = 20;							//array H && W
+const int fieldSIZE = 4;							//array H && W
 const int fieldARRAY_SIZE = fieldSIZE * fieldSIZE;	//array 
-const int pxFIELD_SIZE = 600;						//array in pixels
-const int pxCELL_SIZE = 10;							//one elem of array in pixels
+const int pxFIELD_SIZE = 500;						//array in pixels
+const int pxCELL_SIZE = 120;							//one elem of array in pixels
 //ways
 enum class Direction {
 	left = 2,
