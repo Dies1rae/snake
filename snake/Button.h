@@ -3,7 +3,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-class Button{
+class Button {
 private:
 	sf::RectangleShape button;
 	sf::Text text;
@@ -22,7 +22,7 @@ public:
 		text.setCharacterSize(charSize);
 		text.setFillColor(textColor);
 	}
-	~Button(){}
+	~Button() {}
 
 
 	void setFont(sf::Font& fonts);
