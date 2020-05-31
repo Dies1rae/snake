@@ -10,12 +10,16 @@ int OPTIONS();
 int ABOUT();
 
 int main_win_gui() {
+	
 	//main window menu options
 	sf::RenderWindow mainwindow(sf::VideoMode(1024, 768), "SNAKE");
+	/*
 	//icon
 	sf::Image icon;
 	icon.loadFromFile(".//img//icon.png");
 	mainwindow.setIcon(32, 32, 3);
+	*/
+
 
 	//background opt
 	//-----------------left snake
