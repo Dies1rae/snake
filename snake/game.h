@@ -27,15 +27,16 @@ l	C	r
 class game:public sf::Drawable, public sf::Transformable{
 protected:
 	int elements[fieldARRAY_SIZE];
-	int empty_index;
-	bool solved;
 	sf::Font font;
 public:
-	game();
-	void Init();
-	bool Check();
-	void Move(Direction direction);
+	game() {
+		font.loadFromFile(".//fonts//AGENCYB.TTF");
+		Init();
+	};
+	~game(){}
 
+	void Init();
+	void Move(Direction direction);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 

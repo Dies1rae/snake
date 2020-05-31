@@ -2,6 +2,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Button.h"
+#include "game.h"
 
 int main_win_gui();
 int new_game_started();
@@ -124,7 +125,11 @@ int new_game_started() {
 	sf::Text sometxt("|  So there will be a SNAKE game  |", gmtxt, 50);
 	sometxt.setStyle(sf::Text::Italic);
 	sometxt.setFillColor(sf::Color::Black);
-	sometxt.setPosition(200, 100);
+	sometxt.setPosition(200, 10);
+
+	//game init
+	game testgame;
+	testgame.setPosition(50.f, 50.f);
 
 	//main loop for window
 	while (gswind.isOpen()) {
@@ -149,6 +154,7 @@ int new_game_started() {
 			gswind.clear(sf::Color(255, 255, 255, 0));
 			gswind.draw(sometxt);
 			retbtn.drawTo(gswind);
+			gswind.draw(testgame);
 			//draw all
 			gswind.display();
 		}
