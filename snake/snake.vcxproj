@@ -145,12 +145,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="snake.cpp" />
     <ClCompile Include="snake_part.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="snake.h" />
     <ClInclude Include="snake_part.h" />

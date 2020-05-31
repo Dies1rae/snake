@@ -62,15 +62,10 @@ int main_win_gui() {
 			if (mainev.type == sf::Event::Closed) {
 				mainwindow.close();
 			}
-
-			if (mainev.type == sf::Event::MouseMoved) {
-				if (startgamebtn.isMouseOver(mainwindow)) {
-					//startgamebtn.setBackColor(sf::Color::Black);
+			if (mainev.type == sf::Event::KeyPressed) {
+				if (mainev.key.code == sf::Keyboard::Escape) {
+					mainwindow.close();
 				}
-				else {
-					//startgamebtn.setBackColor(sf::Color::Red);
-				}
-				break;
 			}
 			if (mainev.type == sf::Event::MouseButtonPressed) {
 				if (startgamebtn.isMouseOver(mainwindow)) {
@@ -114,6 +109,7 @@ int main_win_gui() {
 int new_game_started() {
 	//main game window options
 	sf::RenderWindow gswind(sf::VideoMode(1024, 768), "GAME STARTED");
+	gswind.setFramerateLimit(60);
 	//-----btns
 	//-----rtrn btn
 	Button retbtn("->RETURN<-", { 105, 55 }, 50, sf::Color::White, sf::Color::Black);
@@ -137,6 +133,12 @@ int new_game_started() {
 			if (gsev.type == sf::Event::Closed) {
 				gswind.close();
 			}
+			if (gsev.type == sf::Event::KeyPressed) {
+				if (gsev.key.code == sf::Keyboard::Escape) {
+					gswind.close();
+					main_win_gui();
+				}
+			}
 			if (gsev.type == sf::Event::MouseButtonPressed) {
 				if (retbtn.isMouseOver(gswind)) {
 					gswind.close();
@@ -153,7 +155,6 @@ int new_game_started() {
 	}
 	return 0;
 }
-
 
 int OPTIONS() {
 	//main game window options
@@ -180,6 +181,12 @@ int OPTIONS() {
 		while (optwind.pollEvent(optev)) {
 			if (optev.type == sf::Event::Closed) {
 				optwind.close();
+			}
+			if (optev.type == sf::Event::KeyPressed) {
+				if (optev.key.code == sf::Keyboard::Escape) {
+					optwind.close();
+					main_win_gui();
+				}
 			}
 			if (optev.type == sf::Event::MouseButtonPressed) {
 				if (retbtn.isMouseOver(optwind)) {
@@ -222,6 +229,12 @@ int ABOUT() {
 		while (aboutwind.pollEvent(abev)) {
 			if (abev.type == sf::Event::Closed) {
 				aboutwind.close();
+			}
+			if (abev.type == sf::Event::KeyPressed) {
+				if (abev.key.code == sf::Keyboard::Escape) {
+					aboutwind.close();
+					main_win_gui();
+				}
 			}
 			if (abev.type == sf::Event::MouseButtonPressed) {
 				if (retbtn.isMouseOver(aboutwind)) {

@@ -1,0 +1,41 @@
+#pragma once
+#include "SFML/Graphics.hpp"
+
+//base sizes in const int
+const int fieldSIZE = 20;							//array H && W
+const int fieldARRAY_SIZE = fieldSIZE * fieldSIZE;	//array 
+const int pxFIELD_SIZE = 600;						//array in pixels
+const int pxCELL_SIZE = 10;							//one elem of array in pixels
+//ways
+enum class Direction {
+	left = 2,
+	right = 3,
+	up = 1,
+	down = 4
+};
+
+/* move patterns
+	1
+2	0	3
+	4
+
+	u
+l	C	r
+	d
+
+*/
+class game:public sf::Drawable, public sf::Transformable{
+protected:
+	int elements[fieldARRAY_SIZE];
+	int empty_index;
+	bool solved;
+	sf::Font font;
+public:
+	game();
+	void Init();
+	bool Check();
+	void Move(Direction direction);
+
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+};
+
