@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include "snake_part.h"
-#define grow  true
+#define grow true
 class snake{
 private:
 	int way;
@@ -12,7 +12,7 @@ public:
 		this->way = 0;
 		this->length = 3;
 		this->body = new snake_part(5, 5);
-		for (int ptr = 0; ptr < this->length; ptr++) {
+		for (int ptr = 1; ptr < this->length; ptr++) {
 			this->body->move(5, 5 + ptr, grow);
 		}
 	}
@@ -22,5 +22,6 @@ public:
 	void move_to_direction_grow(int W, bool G);
 	int get_length();
 	int get_way();
+	int* get_coord();
 };
 

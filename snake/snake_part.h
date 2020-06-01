@@ -5,15 +5,20 @@ private:
 	bool state;
 	int x;
 	int y;
-	class snake_part* next;
 public:
+	class snake_part* next;
 	snake_part() {
 		this->state = 1;
 		this->x = 0;
 		this->y = 0;
 		this->next = NULL;
 	}
-	snake_part(int X, int Y ) : state(1), x(X), y(Y), next(NULL) {}
+	snake_part(int X, int Y){
+		this->state = 1;
+		this->x = X;
+		this->y = Y;
+		this->next = NULL;
+	}
 	~snake_part() {
 		if (this->next != NULL) {
 			delete this->next;
@@ -21,9 +26,9 @@ public:
 	};
 
 	void move(int X, int Y, bool G);
-	int* get_SP_coord();
 	void set_SP_coord(int X, int Y);
 	bool get_SP_state();
 	void set_SP_state(bool S);
+	int* get_SP_coord();
 };
 

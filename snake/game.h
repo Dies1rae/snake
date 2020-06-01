@@ -2,10 +2,15 @@
 #include "SFML/Graphics.hpp"
 
 //base sizes in const int
-const int fieldSIZE = 4;							//array H && W
+const int fieldSIZE = 65;							//array H && W
 const int fieldARRAY_SIZE = fieldSIZE * fieldSIZE;	//array 
-const int pxFIELD_SIZE = 500;						//array in pixels
-const int pxCELL_SIZE = 120;							//one elem of array in pixels
+const int pxFIELD_SIZE = 600;						//array in pixels
+const int pxCELL_SIZE = 10;							//one elem of array in pixels
+
+const sf::Color FillCell(0xDB, 0x70, 0x93);
+const sf::Color OutLine(0xFF, 0x63, 0x47);
+const sf::Color GameField(0x00, 0x80, 0x80);
+const sf::Color DarkGray(0xA9, 0xA9, 0xA9);
 //ways
 enum class Direction {
 	left = 2,

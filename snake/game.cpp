@@ -1,38 +1,40 @@
 #include "game.h"
+#include "snake.h"
+#include <iostream>
+
+extern snake* SNAKEMAIN = new snake();
 
 void game::Init() {
-	for (int ptr = 0; ptr < fieldSIZE-1; ptr++) {
-		elements[ptr] = 0;
+	for (int ptr = 0; ptr < fieldARRAY_SIZE; ptr++) {
+		elements[ptr] = 1;
 	}
 }
 
 void game::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	states.transform *= getTransform();
-	sf::Color color = sf::Color(200, 100, 200);
-
 	sf::RectangleShape shape(sf::Vector2f(fieldSIZE, fieldSIZE));
 	shape.setOutlineThickness(1.f);
-	shape.setOutlineColor(color);
-	shape.setFillColor(sf::Color::Transparent);
-	target.draw(shape, states);
-
+	shape.setOutlineColor(OutLine);
+	shape.setFillColor(GameField);
 	shape.setSize(sf::Vector2f(pxCELL_SIZE, pxCELL_SIZE));
-	shape.setOutlineThickness(1.f);
-	shape.setOutlineColor(color);
-	shape.setFillColor(sf::Color::Transparent);
 
-	sf::Text text("", font, 50);
+	sf::Text snake("*", font, 15);
+	snake.setFillColor(sf::Color::Black);
 
-	for (int ptr = 0; ptr < fieldARRAY_SIZE; ptr++) {
-		shape.setOutlineColor(color);
-		text.setFillColor(color);
-		text.setString(std::to_string(elements[ptr]));
-		if (elements[ptr] == 0) {
-			sf::Vector2f position(ptr % fieldSIZE * pxCELL_SIZE + 50.f, ptr / fieldSIZE * pxCELL_SIZE + 50.f);
-			shape.setPosition(position);
-			text.setPosition(position.x + 30.f + (elements[ptr] < 10 ? 15.f : 0.f), position.y + 25.f);
-			target.draw(shape, states);
-			target.draw(text, states);
+
+	for (int ptr = 0; ptr < fieldARRAY_SIZE; ptr++) {	
+		sf::Vector2f position(ptr % fieldSIZE * pxCELL_SIZE, ptr / fieldSIZE * pxCELL_SIZE);
+		snake.setPosition(position.x+0.5, position.y-1);
+		shape.setPosition(position);
+		target.draw(shape, states);
+		for (int ptr1 = 0; ptr1 < SNAKEMAIN->get_length()*2;ptr1++) {
+			if (SNAKEMAIN->get_coord()[ptr1] == ptr) {
+				std::cout << SNAKEMAIN->get_coord()[ptr1] << std::endl;
+				target.draw(snake, states);
+			}
 		}
+		
+		
+
 	}
 }

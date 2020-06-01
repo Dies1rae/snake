@@ -49,17 +49,17 @@ int main_win_gui() {
 	maintext.setPosition(215, 50);
 
 	//start game button----
-	Button startgamebtn("->START<-", { 105, 55 }, 50, sf::Color::White, sf::Color::Black);
+	Button startgamebtn("->START<-", { 105, 55 }, 50, DarkGray, sf::Color::Black);
 	sf::Font STbtn;
 	STbtn.loadFromFile(".//fonts//AGENCYB.TTF");
 	startgamebtn.setFont(STbtn);
 	startgamebtn.setPosition({ 470, 315 });
 	//-----------------OPTION bnt
-	Button optionbtn("->OPTIONS<-", { 105, 55 }, 50, sf::Color::White, sf::Color::Black);
+	Button optionbtn("->OPTIONS<-", { 105, 55 }, 50, DarkGray, sf::Color::Black);
 	optionbtn.setFont(LOGOfont);
 	optionbtn.setPosition({ 470, 375 });
 	//-----------------ABOUT btn
-	Button aboutbtn("->ABOUT<-", { 105, 55 }, 50, sf::Color::White, sf::Color::Black);
+	Button aboutbtn("->ABOUT<-", { 105, 55 }, 50, DarkGray, sf::Color::Black);
 	aboutbtn.setFont(LOGOfont);
 	aboutbtn.setPosition({ 470, 435 });
 	//-----------------return btn
@@ -97,7 +97,7 @@ int main_win_gui() {
 					//std::cout << "ABOUT " << std::endl;
 				}
 			}
-			mainwindow.clear(sf::Color(255, 255, 255, 0));
+			mainwindow.clear(DarkGray);
 
 			//draw back
 			mainwindow.draw(mainwsprt);
@@ -121,23 +121,23 @@ int new_game_started() {
 	gswind.setFramerateLimit(60);
 	//-----btns
 	//-----rtrn btn
-	Button retbtn("->RETURN<-", { 105, 55 }, 50, sf::Color::White, sf::Color::Black);
+	Button retbtn("->RETURN<-", { 105, 55 }, 50, DarkGray, sf::Color::Black);
 	sf::Font LOGOfont;
 	LOGOfont.loadFromFile(".//fonts//AGENCYB.TTF");
 	retbtn.setFont(LOGOfont);
-	retbtn.setPosition({ 470, 700 });
+	retbtn.setPosition({ 460, 700 });
 
 	//game window text
 	sf::Font gmtxt;
 	gmtxt.loadFromFile(".//fonts//AGENCYB.TTF");
-	sf::Text sometxt("|  So there will be a SNAKE game  |", gmtxt, 50);
-	sometxt.setStyle(sf::Text::Italic);
+	sf::Text sometxt("|  GAME FIELD  |", gmtxt, 35);
+	sometxt.setStyle(sf::Text::Underlined);
 	sometxt.setFillColor(sf::Color::Black);
-	sometxt.setPosition(200, 10);
-
+	sometxt.setPosition(420, 5);
+	
 	//game init
 	game testgame;
-	testgame.setPosition(50.f, 50.f);
+	testgame.setPosition(180, 50);
 
 	//main loop for window
 	while (gswind.isOpen()) {
@@ -159,7 +159,7 @@ int new_game_started() {
 					//	std::cout << "return to main" << std::endl;
 				}
 			}
-			gswind.clear(sf::Color(255, 255, 255, 0));
+			gswind.clear(DarkGray);
 			gswind.draw(sometxt);
 			retbtn.drawTo(gswind);
 			gswind.draw(testgame);
@@ -175,7 +175,7 @@ int OPTIONS() {
 	sf::RenderWindow optwind(sf::VideoMode(1024, 768), "OPTIONS");
 	//-----btns
 	//-----rtrn btn
-	Button retbtn("->RETURN<-", { 105, 55 }, 50, sf::Color::White, sf::Color::Black);
+	Button retbtn("->RETURN<-", { 105, 55 }, 50, DarkGray, sf::Color::Black);
 	sf::Font LOGOfont;
 	LOGOfont.loadFromFile(".//fonts//AGENCYB.TTF");
 	retbtn.setFont(LOGOfont);
@@ -209,7 +209,7 @@ int OPTIONS() {
 					//std::cout << "return to main" << std::endl;
 				}
 			}
-			optwind.clear(sf::Color(255, 255, 255, 0));
+			optwind.clear(DarkGray);
 			optwind.draw(sometxt);
 			retbtn.drawTo(optwind);
 			optwind.display();
@@ -223,7 +223,7 @@ int ABOUT() {
 	sf::RenderWindow aboutwind(sf::VideoMode(1024, 768), "ABOUT");
 	//-----btns
 	//-----rtrn btn
-	Button retbtn("->RETURN<-", { 105, 55 }, 50, sf::Color::White, sf::Color::Black);
+	Button retbtn("->RETURN<-", { 105, 55 }, 50, DarkGray, sf::Color::Black);
 	sf::Font LOGOfont;
 	LOGOfont.loadFromFile(".//fonts//AGENCYB.TTF");
 	retbtn.setFont(LOGOfont);
@@ -257,7 +257,7 @@ int ABOUT() {
 					//std::cout << "return to main" << std::endl;
 				}
 			}
-			aboutwind.clear(sf::Color(255, 255, 255, 0));
+			aboutwind.clear(DarkGray);
 			aboutwind.draw(sometxt);
 			retbtn.drawTo(aboutwind);
 			aboutwind.display();
