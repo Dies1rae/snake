@@ -39,9 +39,8 @@ public:
 		font.loadFromFile(".//fonts//AGENCYB.TTF");
 		Init();
 	};
-	~game(){
-		this->SNAKEMAIN->~snake();
-	}
+	~game(){}
+
 	void Init();
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

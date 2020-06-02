@@ -8,8 +8,7 @@ int main_win_gui();
 int new_game_started();
 int OPTIONS();
 int ABOUT();
-bool snake_matters(int x, int y);
-void distruct(game G);
+bool snake_matters(int x, int y); 
 
 int main_win_gui() {
 	
@@ -151,28 +150,29 @@ int new_game_started() {
 					gswind.close();
 					main_win_gui();
 				}
-				if (snake_matters(testgame.SNAKEMAIN->get_coord()[0], testgame.SNAKEMAIN->get_coord()[1])) {
-					if (gsev.key.code == sf::Keyboard::Left) {
-						testgame.SNAKEMAIN->move_to_direction_grow(2, 0);
+				if (gsev.key.code == sf::Keyboard::Left || gsev.key.code == sf::Keyboard::Right || gsev.key.code == sf::Keyboard::Down || gsev.key.code == sf::Keyboard::Up) {
+					if (snake_matters(testgame.SNAKEMAIN->get_coord()[0], testgame.SNAKEMAIN->get_coord()[1])) {
+						if (gsev.key.code == sf::Keyboard::Left) {
+							testgame.SNAKEMAIN->move_to_direction_grow(2, 0);
+						}
+						if (gsev.key.code == sf::Keyboard::Right) {
+							testgame.SNAKEMAIN->move_to_direction_grow(3, 0);
+						}
+						if (gsev.key.code == sf::Keyboard::Up) {
+							testgame.SNAKEMAIN->move_to_direction_grow(1, 0);
+						}
+						if (gsev.key.code == sf::Keyboard::Down) {
+							testgame.SNAKEMAIN->move_to_direction_grow(4, 0);
+						}
 					}
-					if (gsev.key.code == sf::Keyboard::Right) {
-						testgame.SNAKEMAIN->move_to_direction_grow(3, 0);
+					else {
+						gswind.close();
+						main_win_gui();
 					}
-					if (gsev.key.code == sf::Keyboard::Up) {
-						testgame.SNAKEMAIN->move_to_direction_grow(1, 0);
-					}
-					if (gsev.key.code == sf::Keyboard::Down) {
-						testgame.SNAKEMAIN->move_to_direction_grow(4, 0);
-					}
-				}
-				else {
-					gswind.close();
-					main_win_gui();
 				}
 			}
 			if (gsev.type == sf::Event::MouseButtonPressed) {
 				if (retbtn.isMouseOver(gswind)) {
-					distruct(testgame);
 					gswind.close();
 					main_win_gui();
 				}
@@ -291,7 +291,4 @@ bool snake_matters(int x, int y) {
 		live = false;
 	}
 	return live;
-}
-void distruct(game G) {
-	G.~game();
 }
