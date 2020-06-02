@@ -117,7 +117,7 @@ int main_win_gui() {
 int new_game_started() {
 	//main game window options
 	sf::RenderWindow gswind(sf::VideoMode(1024, 768), "GAME STARTED");
-	gswind.setFramerateLimit(60);
+	gswind.setFramerateLimit(15);
 	//-----btns
 	//-----rtrn btn
 	Button retbtn("->RETURN<-", { 105, 55 }, 50, DarkGray, sf::Color::Black);
@@ -148,7 +148,7 @@ int new_game_started() {
 		sf::Event gsev;
 		//time to move snake and fnc to check DIE snake
 		if (snake_matters(testgame.SNAKEMAIN->get_coord()[0], testgame.SNAKEMAIN->get_coord()[1])) {
-			if (snclock.getElapsedTime().asSeconds() >= 0.3) {
+			if (snclock.getElapsedTime().asSeconds() >= 0.25) {
 				testgame.SNAKEMAIN->move_to_direction_grow(move, apple);
 				snclock.restart();
 			}
