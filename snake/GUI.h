@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "Button.h"
 #include "game.h"
+#include <Windows.h>
 
 int main_win_gui();
 int new_game_started();
@@ -137,10 +138,25 @@ int new_game_started() {
 	game testgame;
 	testgame.setPosition(180, 50);
 	snake_matters(testgame.SNAKEMAIN->get_coord()[0], testgame.SNAKEMAIN->get_coord()[1]);
-
+	//snake move parametrs and speed
+	int move = 0;
+	bool apple = 0;
+	sf::Clock snclock;
+	//------------------
 	//main loop for window
 	while (gswind.isOpen()) {
 		sf::Event gsev;
+		//time to move snake and fnc to check DIE snake
+		if (snake_matters(testgame.SNAKEMAIN->get_coord()[0], testgame.SNAKEMAIN->get_coord()[1])) {
+			if (snclock.getElapsedTime().asSeconds() >= 0.3) {
+				testgame.SNAKEMAIN->move_to_direction_grow(move, apple);
+				snclock.restart();
+			}
+		}
+		else {
+			gswind.close();
+			main_win_gui();
+		}
 		while (gswind.pollEvent(gsev)) {
 			if (gsev.type == sf::Event::Closed) {
 				gswind.close();
@@ -153,16 +169,24 @@ int new_game_started() {
 				if (gsev.key.code == sf::Keyboard::Left || gsev.key.code == sf::Keyboard::Right || gsev.key.code == sf::Keyboard::Down || gsev.key.code == sf::Keyboard::Up) {
 					if (snake_matters(testgame.SNAKEMAIN->get_coord()[0], testgame.SNAKEMAIN->get_coord()[1])) {
 						if (gsev.key.code == sf::Keyboard::Left) {
-							testgame.SNAKEMAIN->move_to_direction_grow(2, 0);
+							move = 2;
+							apple = 0;
+							
 						}
 						if (gsev.key.code == sf::Keyboard::Right) {
-							testgame.SNAKEMAIN->move_to_direction_grow(3, 0);
+							move = 3;
+							apple = 0;
+							
 						}
 						if (gsev.key.code == sf::Keyboard::Up) {
-							testgame.SNAKEMAIN->move_to_direction_grow(1, 0);
+							move = 1;
+							apple = 0;
+							
 						}
 						if (gsev.key.code == sf::Keyboard::Down) {
-							testgame.SNAKEMAIN->move_to_direction_grow(4, 0);
+							move = 4;
+							apple = 0;
+						
 						}
 					}
 					else {
@@ -177,13 +201,13 @@ int new_game_started() {
 					main_win_gui();
 				}
 			}
-			gswind.clear(DarkGray);
-			gswind.draw(sometxt);
-			retbtn.drawTo(gswind);
-			gswind.draw(testgame);
-			//draw all
-			gswind.display();
 		}
+		gswind.clear(DarkGray);
+		gswind.draw(sometxt);
+		retbtn.drawTo(gswind);
+		gswind.draw(testgame);
+		//draw all
+		gswind.display();
 	}
 	return 0;
 }
