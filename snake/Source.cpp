@@ -5,7 +5,6 @@
 
 
 int main() {
-		
 	main_win_gui();
 	return 0;
 }

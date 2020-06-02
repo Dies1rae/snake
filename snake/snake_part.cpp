@@ -8,9 +8,11 @@ void snake_part::move(int X, int Y, bool G) {
 		this->x = X;
 		this->y = Y;
 	} 
-	else if (G) {
-		//std::cout << "++" << X << "(" << this->x << "):" << Y << "(" << this->y << ") -" << G << std::endl;
-		this->next = new snake_part(this->x, this->y);
+	else {
+		if (G) {
+			//std::cout << "++" << X << "(" << this->x << "):" << Y << "(" << this->y << ") -" << G << std::endl;
+			this->next = new snake_part(this->x, this->y);
+		}
 		this->x = X;
 		this->y = Y;
 	}

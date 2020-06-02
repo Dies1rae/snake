@@ -8,6 +8,7 @@ int main_win_gui();
 int new_game_started();
 int OPTIONS();
 int ABOUT();
+bool snake_matters(int x, int y);
 
 int main_win_gui() {
 	
@@ -80,21 +81,18 @@ int main_win_gui() {
 				if (startgamebtn.isMouseOver(mainwindow)) {
 					mainwindow.close();
 					new_game_started();
-					//std::cout << "START GAME" << std::endl;
 				}
 			}
 			if (mainev.type == sf::Event::MouseButtonPressed) {
 				if (optionbtn.isMouseOver(mainwindow)) {
 					mainwindow.close();
 					OPTIONS();
-					//std::cout << "OPTIONS " << std::endl;
 				}
 			}
 			if (mainev.type == sf::Event::MouseButtonPressed) {
 				if (aboutbtn.isMouseOver(mainwindow)) {
 					mainwindow.close();
 					ABOUT();
-					//std::cout << "ABOUT " << std::endl;
 				}
 			}
 			mainwindow.clear(DarkGray);
@@ -138,6 +136,7 @@ int new_game_started() {
 	//game init
 	game testgame;
 	testgame.setPosition(180, 50);
+	snake_matters(testgame.SNAKEMAIN->get_coord()[0], testgame.SNAKEMAIN->get_coord()[1]);
 
 	//main loop for window
 	while (gswind.isOpen()) {
@@ -151,12 +150,29 @@ int new_game_started() {
 					gswind.close();
 					main_win_gui();
 				}
+				if (snake_matters(testgame.SNAKEMAIN->get_coord()[0], testgame.SNAKEMAIN->get_coord()[1])) {
+					if (gsev.key.code == sf::Keyboard::Left) {
+						testgame.SNAKEMAIN->move_to_direction_grow(2, 0);
+					}
+					if (gsev.key.code == sf::Keyboard::Right) {
+						testgame.SNAKEMAIN->move_to_direction_grow(3, 0);
+					}
+					if (gsev.key.code == sf::Keyboard::Up) {
+						testgame.SNAKEMAIN->move_to_direction_grow(1, 0);
+					}
+					if (gsev.key.code == sf::Keyboard::Down) {
+						testgame.SNAKEMAIN->move_to_direction_grow(4, 0);
+					}
+				}
+				else {
+					gswind.close();
+					main_win_gui();
+				}
 			}
 			if (gsev.type == sf::Event::MouseButtonPressed) {
 				if (retbtn.isMouseOver(gswind)) {
 					gswind.close();
 					main_win_gui();
-					//	std::cout << "return to main" << std::endl;
 				}
 			}
 			gswind.clear(DarkGray);
@@ -264,4 +280,13 @@ int ABOUT() {
 		}
 	}
 	return 0;
+}
+
+
+bool snake_matters(int x, int y) {
+	bool live = true;
+	if (x >= 65 || y >= 65 || x <= 0 || y <= 0) {
+		live = false;
+	}
+	return live;
 }
