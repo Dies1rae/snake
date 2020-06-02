@@ -9,6 +9,7 @@ int new_game_started();
 int OPTIONS();
 int ABOUT();
 bool snake_matters(int x, int y);
+void distruct(game G);
 
 int main_win_gui() {
 	
@@ -171,6 +172,7 @@ int new_game_started() {
 			}
 			if (gsev.type == sf::Event::MouseButtonPressed) {
 				if (retbtn.isMouseOver(gswind)) {
+					distruct(testgame);
 					gswind.close();
 					main_win_gui();
 				}
@@ -289,4 +291,7 @@ bool snake_matters(int x, int y) {
 		live = false;
 	}
 	return live;
+}
+void distruct(game G) {
+	G.~game();
 }
