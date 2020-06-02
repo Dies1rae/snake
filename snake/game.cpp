@@ -28,6 +28,8 @@ void game::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	shape.setOutlineColor(OutLine);
 	shape.setFillColor(GameField);
 	shape.setSize(sf::Vector2f(pxCELL_SIZE, pxCELL_SIZE));
+
+
 	//snake head and body
 	sf::Text snakehead("*", font, 15);
 	snakehead.setFillColor(sf::Color::White);
@@ -49,7 +51,7 @@ void game::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 					if (ptrs == 0) {
 						target.draw(snakehead, states);
 					}
-					else {
+					else{
 						target.draw(snakebody, states);
 					}
 				}

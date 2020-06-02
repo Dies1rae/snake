@@ -12,17 +12,15 @@ int ABOUT();
 bool snake_matters(int x, int y); 
 
 int main_win_gui() {
-	
 	//main window menu options
 	sf::RenderWindow mainwindow(sf::VideoMode(1024, 768), "SNAKE");
 	
 	//icon
 	sf::Image icon;
 	icon.loadFromFile(".//img//icon.png");
-	mainwindow.setIcon(32, 32, icon.getPixelsPtr());
 	
-
-
+	mainwindow.setIcon(80, 80, icon.getPixelsPtr());
+	
 	//background opt
 	//-----------------left snake
 	sf::Image mainwimg;
@@ -117,7 +115,7 @@ int main_win_gui() {
 int new_game_started() {
 	//main game window options
 	sf::RenderWindow gswind(sf::VideoMode(1024, 768), "GAME STARTED");
-	gswind.setFramerateLimit(15);
+	gswind.setFramerateLimit(60);
 	//-----btns
 	//-----rtrn btn
 	Button retbtn("->RETURN<-", { 105, 55 }, 50, DarkGray, sf::Color::Black);
