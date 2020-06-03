@@ -250,18 +250,32 @@ int OPTIONS() {
 	Button plusbtn("+", { 50, 50 }, 50, DarkGray, sf::Color::Black);
 	plusbtn.setFont(LOGOfont);
 	plusbtn.setPosition({ 600, 332 });
-
-	//-------------texts
+	//---ON
+	Button ONbtn("ON", { 60, 60 }, 40, DarkGray, sf::Color::Black);
+	ONbtn.setFont(LOGOfont);
+	ONbtn.setPosition({ 450, 410 });
+	//---OFf
+	Button OFFbtn("OFF", { 60, 60 }, 40, DarkGray, sf::Color::Black);
+	OFFbtn.setFont(LOGOfont);
+	OFFbtn.setPosition({ 550, 410 });
+	//--------------
+	//texts
 	//game window text
 	sf::Text sometxt("| OPTIONS |", LOGOfont, 80);
 	sometxt.setStyle(sf::Text::Underlined);
 	sometxt.setFillColor(sf::Color::Black);
 	sometxt.setPosition(370, 130);
-	//main opteon test
+	//main option speed
 	sf::Text sptxt("speed", LOGOfont, 40);
 	sptxt.setStyle(sf::Text::Bold);
 	sptxt.setFillColor(sf::Color::Black);
 	sptxt.setPosition(240, 350);
+	//main option speed
+	sf::Text darktxt("night mode", LOGOfont, 40);
+	darktxt.setStyle(sf::Text::Bold);
+	darktxt.setFillColor(sf::Color::Black);
+	darktxt.setPosition(240, 420);
+	//-----------------
 	//------------main loop for window
 	while (optwind.isOpen()) {
 		sf::Event optev;
@@ -292,14 +306,46 @@ int OPTIONS() {
 				if (minusbtn.isMouseOver(optwind)) {
 					speed += 0.25;
 				}
+				if (ONbtn.isMouseOver(optwind)) {
+					FillCell.r = 19;
+					FillCell.g = 58;
+					FillCell.b = 112;
+					OutLine.r = 1;
+					OutLine.g = 3;
+					OutLine.b = 12;
+					GameField.r = 19;
+					GameField.g = 23;
+					GameField.b = 18;
+					DarkGray.r = 55;
+					DarkGray.g = 7;
+					DarkGray.b = 52;
+				}
+				if (OFFbtn.isMouseOver(optwind)) {
+					FillCell.r = 0xDB;
+					FillCell.g = 0x70;
+					FillCell.b = 0x93;
+					OutLine.r = 0xFF;
+					OutLine.g = 0x63;
+					OutLine.b = 0x47;
+					GameField.r = 0x00;
+					GameField.g = 0x80;
+					GameField.b = 0x80;
+					DarkGray.r = 0xA9;
+					DarkGray.g = 0xA9;
+					DarkGray.b = 0xA9;
+
+				}
 			}
 		}
 		optwind.clear(DarkGray);
 		optwind.draw(sptxt);
+		optwind.draw(darktxt);
 		optwind.draw(sometxt);
 		optwind.draw(speedtxt);
 		plusbtn.drawTo(optwind);
 		minusbtn.drawTo(optwind);
+		ONbtn.drawTo(optwind);
+		OFFbtn.drawTo(optwind);
 		retbtn.drawTo(optwind);
 		optwind.display();
 	}

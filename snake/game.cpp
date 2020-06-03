@@ -2,6 +2,11 @@
 #include "snake.h"
 #include <iostream>
 
+sf::Color FillCell(0xDB, 0x70, 0x93);
+sf::Color OutLine(0xFF, 0x63, 0x47);
+sf::Color GameField(0x00, 0x80, 0x80);
+sf::Color DarkGray(0xA9, 0xA9, 0xA9);
+
 //------------------
 void game::Init() {
 	for (int ptr = 0; ptr < fieldSIZE; ptr++) {

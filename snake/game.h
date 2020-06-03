@@ -4,11 +4,12 @@
 
 //base sizes in const int
 const int fieldSIZE = 65;							//array H && W
-const int pxCELL_SIZE = 10;
-const sf::Color FillCell(0xDB, 0x70, 0x93);
-const sf::Color OutLine(0xFF, 0x63, 0x47);
-const sf::Color GameField(0x00, 0x80, 0x80);
-const sf::Color DarkGray(0xA9, 0xA9, 0xA9);
+const int pxCELL_SIZE = 10;							// 1 cell size
+//colour day
+extern sf::Color FillCell;
+extern sf::Color OutLine;
+extern sf::Color GameField;
+extern sf::Color DarkGray;
 //ways
 enum class Direction {
 	left = 2,
@@ -45,3 +46,18 @@ public:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 
+
+/* DARK THEME
+FillCell.r = 19;
+FillCell.g = 97;
+FillCell.b = 112;
+OutLine.r = 45;
+OutLine.g = 3;
+OutLine.b = 85;
+GameField.r = 52;
+GameField.g = 22;
+GameField.b = 33;
+DarkGray.r = 0;
+DarkGray.g = 0;
+DarkGray.b = 1;
+*/
