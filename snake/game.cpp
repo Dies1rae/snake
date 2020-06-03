@@ -2,10 +2,7 @@
 #include "snake.h"
 #include <iostream>
 
-//init for snake who;e
-
 //------------------
-
 void game::Init() {
 	for (int ptr = 0; ptr < fieldSIZE; ptr++) {
 		for (int ptr1 = 0; ptr1 < fieldSIZE; ptr1++) {
