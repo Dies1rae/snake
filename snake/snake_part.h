@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+//this is basicaly part of the snake, part == one pixel.
 class snake_part{
 private:
 	bool state;
