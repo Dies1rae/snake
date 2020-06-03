@@ -15,8 +15,8 @@ public:
 		button.setSize(buttonSize);
 		button.setFillColor(bgColor);
 
-		btnWidth = buttonSize.x;
-		btnHeight = buttonSize.y;
+		btnWidth = (int)buttonSize.x;
+		btnHeight = (int)buttonSize.y;
 
 		text.setString(btnText);
 		text.setCharacterSize(charSize);

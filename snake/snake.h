@@ -6,11 +6,13 @@ class snake{
 private:
 	int way;
 	int length;
+	float speed;
 	snake_part* body;
 public:
 	snake() {
 		this->way = 0;
 		this->length = 3;
+		this->speed = 0.25;
 		this->body = new snake_part(5, 5);
 		for (int ptr = 1; ptr < this->length; ptr++) {
 			this->body->move(5, 5 + ptr, grow);
@@ -23,5 +25,7 @@ public:
 	int get_length();
 	int get_way();
 	int* get_coord();
+	void set_sn_speed_change(float S);
+	float get_sn_speed();
 };
 

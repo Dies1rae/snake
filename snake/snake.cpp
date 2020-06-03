@@ -2,7 +2,6 @@
 #include <iostream>
 #include "snake_part.h"
 
-
 void snake::move_to_direction_grow(int W, bool G) {
 	if (G) {
 		this->length++;
@@ -41,6 +40,13 @@ int* snake::get_coord() {
 	return coord;
 }
 
+
+void snake::set_sn_speed_change(float S) {
+	this->speed += S;
+}
+float snake::get_sn_speed() {
+	return this->speed;
+}
 
 	/* move patterns
 		1
