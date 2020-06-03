@@ -2,8 +2,7 @@
 #include "SFML/Graphics.hpp"
 
 //base sizes in const int
-const int fieldSIZE = 65;							//array H && W
-const int fieldARRAY_SIZE = fieldSIZE * fieldSIZE;	//array 
+const int fieldSIZE = 65;							//array H && W 
 const int pxFIELD_SIZE = 600;						//array in pixels
 const int pxCELL_SIZE = 10;							//one elem of array in pixels
 
@@ -31,7 +30,7 @@ l	C	r
 */
 class game:public sf::Drawable, public sf::Transformable{
 protected:
-	int elements[fieldARRAY_SIZE];
+	int elements[fieldSIZE][fieldSIZE];
 	sf::Font font;
 public:
 	game() {
