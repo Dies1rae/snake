@@ -10,7 +10,6 @@ int main_win_gui();
 int new_game_started();
 int OPTIONS();
 int ABOUT();
-//bool snake_matters(int x, int y); 
 //----------------
 //snake options
 float speed = 0;
@@ -150,8 +149,6 @@ int new_game_started() {
 	game testgame;
 	testgame.setPosition(180, 50);
 	testgame.SNAKEMAIN->set_sn_speed_change(speed);
-	std::cout << testgame.SNAKEMAIN->get_sn_speed() << std::endl;
-	//snake_matters(testgame.SNAKEMAIN->get_coord()[0], testgame.SNAKEMAIN->get_coord()[1]);
 	//snake move parametrs and speed
 	int move = 0;
 	bool apple = 0;
@@ -356,12 +353,3 @@ int ABOUT() {
 	}
 	return 0;
 }
-/*
-bool snake_matters(int x, int y) {
-	bool live = true;
-	if (x >= 65 || y >= 65 || x <= 0 || y <= 0) {
-		live = false;
-	}
-	return live;
-}
-*/
