@@ -27,5 +27,6 @@ public:
 	int* get_coord();
 	void set_sn_speed_change(float S);
 	float get_sn_speed();
+	bool snake_dies();
 };
 
