@@ -1,15 +1,22 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "snake.h"
+#include "apple.h"
 
 //base sizes in const int
 const int fieldSIZE = 65;							//array H && W
 const int pxCELL_SIZE = 10;							// 1 cell size
-//colour day
+//colors
 extern sf::Color FillCell;
 extern sf::Color OutLine;
 extern sf::Color GameField;
 extern sf::Color DarkGray;
+extern sf::Color TEXTS;
+//snake move parametrs and speed
+extern int move;
+extern bool appleGOT;
+//APPLE
+extern apple MAINAPPLE;
 //ways
 enum class Direction {
 	left = 2,
@@ -45,19 +52,3 @@ public:
 	void Init();
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
-
-
-/* DARK THEME
-FillCell.r = 19;
-FillCell.g = 97;
-FillCell.b = 112;
-OutLine.r = 45;
-OutLine.g = 3;
-OutLine.b = 85;
-GameField.r = 52;
-GameField.g = 22;
-GameField.b = 33;
-DarkGray.r = 0;
-DarkGray.g = 0;
-DarkGray.b = 1;
-*/

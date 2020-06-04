@@ -19,6 +19,9 @@ void snake::move_to_direction_grow(int W, bool G) {
 	if (W == 3) {
 		this->body->move(this->body->get_SP_coord()[0], this->body->get_SP_coord()[1] + 1, G);
 	}
+	if (W == 0) {
+		return;
+	}
 }
 int snake::get_length() {
 	return this->length;
@@ -69,6 +72,9 @@ void snake::set_sn_speed_change(float S) {
 }
 float snake::get_sn_speed() {
 	return this->speed;
+}
+void snake::set_snake_way(int W) {
+	this->way = W;
 }
 
 	/* move patterns

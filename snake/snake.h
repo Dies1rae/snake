@@ -28,5 +28,6 @@ public:
 	void set_sn_speed_change(float S);
 	float get_sn_speed();
 	bool snake_dies();
+	void set_snake_way(int W);
 };
 

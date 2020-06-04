@@ -4,6 +4,12 @@
 #include "Button.h"
 #include "game.h"
 #include <Windows.h>
+#include "apple.h"
+#include <random>
+#include <time.h>
+#include <stdlib.h>
+#include "random.h"
+
 
 //fnc observ
 int main_win_gui();
@@ -14,6 +20,16 @@ int ABOUT();
 //snake options
 float speed = 0;
 //---------------
+//snake move parametrs and speed
+int move = 0;
+bool appleGOT = 0;
+//randomAPPLE
+rnd_t randomap;
+//---------
+//-------
+//APPLE
+apple MAINAPPLE(rand() % 65, rand() % 65);
+//-------
 
 int main_win_gui() {
 	
@@ -21,9 +37,11 @@ int main_win_gui() {
 	//main window menu options
 	sf::RenderWindow mainwindow(sf::VideoMode(1024, 768), "SNAKE");
 	//icon
+	/*
 	sf::Image icon;
 	icon.loadFromFile(".//img//icon.png");
 	mainwindow.setIcon(80, 80, icon.getPixelsPtr());
+	*/
 	//---------
 	//background opt
 	//-----------------left snake
@@ -47,25 +65,25 @@ int main_win_gui() {
 	LOGOfont.loadFromFile(".//fonts//AGENCYB.TTF");
 	sf::Text maintext("|  S N A K E  |", LOGOfont, 140);
 	maintext.setStyle(sf::Text::Bold);
-	maintext.setFillColor(sf::Color::Black);
+	maintext.setFillColor(TEXTS);
 	maintext.setPosition(215, 50);
 	//----------------
 	//start game button----
-	Button startgamebtn("->START<-", { 105, 55 }, 50, DarkGray, sf::Color::Black);
+	Button startgamebtn("->START<-", { 105, 55 }, 50, DarkGray, TEXTS);
 	sf::Font STbtn;
 	STbtn.loadFromFile(".//fonts//AGENCYB.TTF");
 	startgamebtn.setFont(STbtn);
 	startgamebtn.setPosition({ 470, 315 });
 	//-----------------OPTION bnt
-	Button optionbtn("->OPTIONS<-", { 105, 55 }, 50, DarkGray, sf::Color::Black);
+	Button optionbtn("->OPTIONS<-", { 105, 55 }, 50, DarkGray, TEXTS);
 	optionbtn.setFont(LOGOfont);
 	optionbtn.setPosition({ 470, 375 });
 	//-----------------ABOUT btn
-	Button aboutbtn("->ABOUT<-", { 105, 55 }, 50, DarkGray, sf::Color::Black);
+	Button aboutbtn("->ABOUT<-", { 105, 55 }, 50, DarkGray, TEXTS);
 	aboutbtn.setFont(LOGOfont);
 	aboutbtn.setPosition({ 470, 435 });
 	//-----------------exit btn
-	Button exitbtn("->EXIT<-", { 105, 55 }, 50, DarkGray, sf::Color::Black);
+	Button exitbtn("->EXIT<-", { 105, 55 }, 50, DarkGray, TEXTS);
 	exitbtn.setFont(LOGOfont);
 	exitbtn.setPosition({ 470, 495 });
 
@@ -119,10 +137,10 @@ int main_win_gui() {
 int new_game_started() {
 	//main game window options
 	sf::RenderWindow gswind(sf::VideoMode(1024, 768), "GAME STARTED");
-	gswind.setFramerateLimit(60);
+	gswind.setFramerateLimit(120);
 	//-----btns
 	//-----rtrn btn
-	Button retbtn("->RETURN<-", { 105, 55 }, 50, DarkGray, sf::Color::Black);
+	Button retbtn("->RETURN<-", { 105, 55 }, 50, DarkGray, TEXTS);
 	sf::Font LOGOfont;
 	LOGOfont.loadFromFile(".//fonts//AGENCYB.TTF");
 	retbtn.setFont(LOGOfont);
@@ -132,7 +150,7 @@ int new_game_started() {
 	gmtxt.loadFromFile(".//fonts//AGENCYB.TTF");
 	sf::Text sometxt("|  GAME FIELD  |", gmtxt, 35);
 	sometxt.setStyle(sf::Text::Underlined);
-	sometxt.setFillColor(sf::Color::Black);
+	sometxt.setFillColor(TEXTS);
 	sometxt.setPosition(420, 5);
 	//LOGO
 	//wasted logo (if DIE)
@@ -149,9 +167,6 @@ int new_game_started() {
 	game testgame;
 	testgame.setPosition(180, 50);
 	testgame.SNAKEMAIN->set_sn_speed_change(speed);
-	//snake move parametrs and speed
-	int move = 0;
-	bool apple = 0;
 	sf::Clock snclock;
 	//------------------
 	//main loop for window
@@ -160,8 +175,16 @@ int new_game_started() {
 		//time to move snake and fnc to check DIE snake
 		if (testgame.SNAKEMAIN->snake_dies()) {
 			if (snclock.getElapsedTime().asSeconds() >= testgame.SNAKEMAIN->get_sn_speed()) {
-				testgame.SNAKEMAIN->move_to_direction_grow(move, apple);
+				testgame.SNAKEMAIN->move_to_direction_grow(move, appleGOT);
+				if (appleGOT) {
+					appleGOT = 0;
+					MAINAPPLE.set_apple_alive_status(0);
+				}
 				snclock.restart();
+				
+			}
+			if (!MAINAPPLE.get_apple_alive_status()) {
+				MAINAPPLE.set_apple_coord(randomap.irnd(64), randomap.irnd(64));
 			}
 		}
 		else {
@@ -187,29 +210,32 @@ int new_game_started() {
 		while (gswind.pollEvent(gsev)) {
 			if (gsev.type == sf::Event::Closed) {
 				gswind.close();
+				testgame.SNAKEMAIN->move_to_direction_grow(0, 0);
+				testgame.SNAKEMAIN->set_snake_way(0);
 				main_win_gui();
 			}
 			if (gsev.type == sf::Event::KeyPressed) {
 				if (gsev.key.code == sf::Keyboard::Escape) {
 					gswind.close();
+					testgame.SNAKEMAIN->move_to_direction_grow(0, 0);
 					main_win_gui();
 				}
 				if (gsev.key.code == sf::Keyboard::Left || gsev.key.code == sf::Keyboard::Right || gsev.key.code == sf::Keyboard::Down || gsev.key.code == sf::Keyboard::Up) {				
 					if (gsev.key.code == sf::Keyboard::Left) {
 						move = 2;
-						apple = 0;
+						
 					}
 					if (gsev.key.code == sf::Keyboard::Right) {
 						move = 3;
-						apple = 0;
+					
 					}
 					if (gsev.key.code == sf::Keyboard::Up) {
 						move = 1;
-						apple = 0;
+					
 					}
 					if (gsev.key.code == sf::Keyboard::Down) {
 						move = 4;
-						apple = 0;
+						
 					}
 				}
 			}
@@ -238,24 +264,24 @@ int OPTIONS() {
 	LOGOfont.loadFromFile(".//fonts//AGENCYB.TTF");
 	//-----btns
 	//-----rtrn btn
-	Button retbtn("->RETURN<-", { 105, 55 }, 50, DarkGray, sf::Color::Black);
+	Button retbtn("->RETURN<-", { 105, 55 }, 50, DarkGray, TEXTS);
 	retbtn.setFont(LOGOfont);
 	retbtn.setPosition({ 470, 600 });
 	//game opt btn
 	//---+
-	Button minusbtn("-", { 50, 90 }, 50, DarkGray, sf::Color::Black);
+	Button minusbtn("-", { 50, 90 }, 50, DarkGray, TEXTS);
 	minusbtn.setFont(LOGOfont);
 	minusbtn.setPosition({ 400, 305 });
 	//---  -
-	Button plusbtn("+", { 50, 50 }, 50, DarkGray, sf::Color::Black);
+	Button plusbtn("+", { 50, 50 }, 50, DarkGray, TEXTS);
 	plusbtn.setFont(LOGOfont);
 	plusbtn.setPosition({ 600, 332 });
 	//---ON
-	Button ONbtn("ON", { 60, 60 }, 40, DarkGray, sf::Color::Black);
+	Button ONbtn("ON", { 60, 60 }, 40, DarkGray, TEXTS);
 	ONbtn.setFont(LOGOfont);
 	ONbtn.setPosition({ 450, 410 });
 	//---OFf
-	Button OFFbtn("OFF", { 60, 60 }, 40, DarkGray, sf::Color::Black);
+	Button OFFbtn("OFF", { 60, 60 }, 40, DarkGray, TEXTS);
 	OFFbtn.setFont(LOGOfont);
 	OFFbtn.setPosition({ 550, 410 });
 	//--------------
@@ -263,17 +289,17 @@ int OPTIONS() {
 	//game window text
 	sf::Text sometxt("| OPTIONS |", LOGOfont, 80);
 	sometxt.setStyle(sf::Text::Underlined);
-	sometxt.setFillColor(sf::Color::Black);
+	sometxt.setFillColor(TEXTS);
 	sometxt.setPosition(370, 130);
 	//main option speed
 	sf::Text sptxt("speed", LOGOfont, 40);
 	sptxt.setStyle(sf::Text::Bold);
-	sptxt.setFillColor(sf::Color::Black);
+	sptxt.setFillColor(TEXTS);
 	sptxt.setPosition(240, 350);
 	//main option speed
 	sf::Text darktxt("night mode", LOGOfont, 40);
 	darktxt.setStyle(sf::Text::Bold);
-	darktxt.setFillColor(sf::Color::Black);
+	darktxt.setFillColor(TEXTS);
 	darktxt.setPosition(240, 420);
 	//-----------------
 	//------------main loop for window
@@ -282,7 +308,7 @@ int OPTIONS() {
 		//speedometr
 		sf::Text speedtxt(std::to_string(speed), LOGOfont, 30);
 		speedtxt.setStyle(sf::Text::Italic);
-		speedtxt.setFillColor(sf::Color::Black);
+		speedtxt.setFillColor(TEXTS);
 		speedtxt.setPosition(470, 360);
 		//--------------------
 		while (optwind.pollEvent(optev)) {
@@ -301,10 +327,10 @@ int OPTIONS() {
 					main_win_gui();
 				}
 				if (plusbtn.isMouseOver(optwind)) {
-					speed -= 0.25;
+					speed -= 0.10;
 				}
 				if (minusbtn.isMouseOver(optwind)) {
-					speed += 0.25;
+					speed += 0.10;
 				}
 				if (ONbtn.isMouseOver(optwind)) {
 					FillCell.r = 19;
@@ -313,12 +339,16 @@ int OPTIONS() {
 					OutLine.r = 1;
 					OutLine.g = 3;
 					OutLine.b = 12;
-					GameField.r = 19;
-					GameField.g = 23;
-					GameField.b = 18;
+					GameField.r = 110;
+					GameField.g = 110;
+					GameField.b = 110;
 					DarkGray.r = 55;
 					DarkGray.g = 7;
 					DarkGray.b = 52;
+					TEXTS.r = 51;
+					TEXTS.g = 51;
+					TEXTS.b = 51;
+
 				}
 				if (OFFbtn.isMouseOver(optwind)) {
 					FillCell.r = 0xDB;
@@ -333,7 +363,9 @@ int OPTIONS() {
 					DarkGray.r = 0xA9;
 					DarkGray.g = 0xA9;
 					DarkGray.b = 0xA9;
-
+					TEXTS.r = 0;
+					TEXTS.g = 0;
+					TEXTS.b = 0;
 				}
 			}
 		}
@@ -357,7 +389,7 @@ int ABOUT() {
 	sf::RenderWindow aboutwind(sf::VideoMode(1024, 768), "ABOUT");
 	//-----btns
 	//-----rtrn btn
-	Button retbtn("->RETURN<-", { 105, 55 }, 50, DarkGray, sf::Color::Black);
+	Button retbtn("->RETURN<-", { 105, 55 }, 50, DarkGray, TEXTS);
 	sf::Font LOGOfont;
 	LOGOfont.loadFromFile(".//fonts//AGENCYB.TTF");
 	retbtn.setFont(LOGOfont);
@@ -368,7 +400,7 @@ int ABOUT() {
 	abtxt.loadFromFile(".//fonts//AGENCYB.TTF");
 	sf::Text sometxt("|  Some thnx to all  |", abtxt, 50);
 	sometxt.setStyle(sf::Text::Italic);
-	sometxt.setFillColor(sf::Color::Black);
+	sometxt.setFillColor(TEXTS);
 	sometxt.setPosition(200, 100);
 
 	//main loop for window
