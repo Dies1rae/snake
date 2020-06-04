@@ -27,7 +27,7 @@ public:
 	int get_length();
 	int get_way();
 	std::vector<int> get_coord();
-	void set_sn_speed_change(float S);
+	void set_sn_speed_change(double S);
 	float get_sn_speed();
 	bool snake_dies();
 	void set_snake_way(int W);

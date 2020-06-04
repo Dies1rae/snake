@@ -55,7 +55,7 @@ bool  snake::snake_dies() {
 	return true;
 }
 
-void snake::set_sn_speed_change(float S) {
+void snake::set_sn_speed_change(double S) {
 	this->speed += S;
 }
 float snake::get_sn_speed() {

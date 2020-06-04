@@ -1,8 +1,6 @@
 #include "apple.h"
 #include <random>
 
-
-
 bool apple::get_apple_alive_status(){
 	return this->alive;
 }

@@ -18,7 +18,7 @@ int OPTIONS();
 int ABOUT();
 //----------------
 //snake options
-float speed = 0;
+double speed = 0;
 //---------------
 //snake move parametrs and speed
 int move = 0;
@@ -475,15 +475,39 @@ int ABOUT() {
 	retbtn.setPosition({ 470, 600 });
 
 	//game window text
-	sf::Font abtxt;
-	abtxt.loadFromFile(".//fonts//AGENCYB.TTF");
-	sf::Text sometxt("| ABOUT |", abtxt, 50);
+	sf::Text sometxt("| ABOUT |", LOGOfont, 60);
 	sometxt.setStyle(sf::Text::Underlined);
 	sometxt.setFillColor(TEXTS);
-	sometxt.setPosition(200, 100);
-
+	sometxt.setPosition(430, 100);
+	//----------------
+	//thnx
+	sf::Color thnx(sf::Color::Black);
+	sf::Text thnxtxt("This is simple SNAKE game on pure C++, with use SFML lib for graphics part.\n For that in my level ill spend about ~30 hourse, nice work as i think.\n So a few THNXis for my friends for help:", LOGOfont, 25);
+	thnxtxt.setFillColor(thnx);
+	thnxtxt.setStyle(sf::Text::Italic);
+	thnxtxt.setPosition(180, 200);
+	//main loop for window
+	//thnx
+	sf::Text namestxt("I. Platov Anton aka.bug - for help with clases logic build and random class\nII. gim(@gim) https://twitter.com/gim?s=03 for help with choose of graphics lib\nIII. Popovich A - For beta testing and fresh mind\nIV. aka.13\n...Game by Poltavskiy Nick aka.Dies_Irae...", LOGOfont, 25);
+	namestxt.setFillColor(thnx);
+	namestxt.setStyle(sf::Text::Bold);
+	namestxt.setPosition(185, 300);
 	//main loop for window
 	while (aboutwind.isOpen()) {
+		if (thnx.r < 255) {
+			thnx.r+= 50;
+			thnx.g += 50;
+			thnx.b += 50;
+			thnx.a += 50;
+
+		}
+		else {
+			thnx.r -= 50;
+			thnx.g -= 50;
+			thnx.b -= 50;
+			thnx.a -= 50;
+
+		}
 		sf::Event abev;
 		while (aboutwind.pollEvent(abev)) {
 			if (abev.type == sf::Event::Closed) {
@@ -499,11 +523,12 @@ int ABOUT() {
 				if (retbtn.isMouseOver(aboutwind)) {
 					aboutwind.close();
 					main_win_gui();
-					//std::cout << "return to main" << std::endl;
 				}
 			}
 		}
 		aboutwind.clear(DarkGray);
+		aboutwind.draw(thnxtxt);
+		aboutwind.draw(namestxt);
 		aboutwind.draw(sometxt);
 		retbtn.drawTo(aboutwind);
 		aboutwind.display();
