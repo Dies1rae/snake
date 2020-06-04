@@ -137,7 +137,7 @@ int main_win_gui() {
 int new_game_started() {
 	//main game window options
 	sf::RenderWindow gswind(sf::VideoMode(1024, 768), "GAME STARTED");
-	gswind.setFramerateLimit(120);
+	gswind.setFramerateLimit(60);
 	//-----btns
 	//-----rtrn btn
 	Button retbtn("->RETURN<-", { 105, 55 }, 50, DarkGray, TEXTS);
@@ -189,18 +189,22 @@ int new_game_started() {
 		}
 		else {
 			gswind.draw(diesprite);
+			move = 0;
 			gswind.display();
 			while (gswind.pollEvent(gsev)) {
 				if (gsev.type == sf::Event::Closed) {
+					move = 0;
 					gswind.close();
 					main_win_gui();
 				}
 				if (gsev.type == sf::Event::KeyPressed) {
+					move = 0;
 					gswind.close();
 					main_win_gui();
 				}
 				if (gsev.type == sf::Event::MouseButtonPressed) {
 					if (retbtn.isMouseOver(gswind)) {
+						move = 0;
 						gswind.close();
 						main_win_gui();
 					}
@@ -209,6 +213,7 @@ int new_game_started() {
 		}
 		while (gswind.pollEvent(gsev)) {
 			if (gsev.type == sf::Event::Closed) {
+				move = 0;
 				gswind.close();
 				testgame.SNAKEMAIN->move_to_direction_grow(0, 0);
 				testgame.SNAKEMAIN->set_snake_way(0);
@@ -216,31 +221,72 @@ int new_game_started() {
 			}
 			if (gsev.type == sf::Event::KeyPressed) {
 				if (gsev.key.code == sf::Keyboard::Escape) {
+					move = 0;
 					gswind.close();
 					testgame.SNAKEMAIN->move_to_direction_grow(0, 0);
 					main_win_gui();
 				}
-				if (gsev.key.code == sf::Keyboard::Left || gsev.key.code == sf::Keyboard::Right || gsev.key.code == sf::Keyboard::Down || gsev.key.code == sf::Keyboard::Up) {				
-					if (gsev.key.code == sf::Keyboard::Left) {
-						move = 2;
-						
+				if (gsev.key.code == sf::Keyboard::Left || gsev.key.code == sf::Keyboard::Right || gsev.key.code == sf::Keyboard::Down || gsev.key.code == sf::Keyboard::Up) {
+					if (move == 0) {
+						if (gsev.key.code == sf::Keyboard::Right) {
+							move = 3;
+						}
+						if (gsev.key.code == sf::Keyboard::Up) {
+							move = 1;
+						}
+						if (gsev.key.code == sf::Keyboard::Down) {
+							move = 4;
+						}
 					}
-					if (gsev.key.code == sf::Keyboard::Right) {
-						move = 3;
-					
+					if (move == 2) {
+						if (gsev.key.code == sf::Keyboard::Left) {
+							move = 2;
+						}
+						if (gsev.key.code == sf::Keyboard::Up) {
+							move = 1;
+						}
+						if (gsev.key.code == sf::Keyboard::Down) {
+							move = 4;
+						}
 					}
-					if (gsev.key.code == sf::Keyboard::Up) {
-						move = 1;
-					
+					if (move == 3) {
+						if (gsev.key.code == sf::Keyboard::Right) {
+							move = 3;
+						}
+						if (gsev.key.code == sf::Keyboard::Up) {
+							move = 1;
+						}
+						if (gsev.key.code == sf::Keyboard::Down) {
+							move = 4;
+						}
 					}
-					if (gsev.key.code == sf::Keyboard::Down) {
-						move = 4;
-						
+					if (move == 1) {
+						if (gsev.key.code == sf::Keyboard::Left) {
+							move = 2;
+						}
+						if (gsev.key.code == sf::Keyboard::Right) {
+							move = 3;
+						}
+						if (gsev.key.code == sf::Keyboard::Up) {
+							move = 1;
+						}
+					}
+					if (move == 4) {
+						if (gsev.key.code == sf::Keyboard::Left) {
+							move = 2;
+						}
+						if (gsev.key.code == sf::Keyboard::Right) {
+							move = 3;
+						}
+						if (gsev.key.code == sf::Keyboard::Down) {
+							move = 4;
+						}
 					}
 				}
 			}
 			if (gsev.type == sf::Event::MouseButtonPressed) {
 				if (retbtn.isMouseOver(gswind)) {
+					move = 0;
 					gswind.close();
 					main_win_gui();
 				}
@@ -327,10 +373,10 @@ int OPTIONS() {
 					main_win_gui();
 				}
 				if (plusbtn.isMouseOver(optwind)) {
-					speed -= 0.10;
+					speed -= 0.05;
 				}
 				if (minusbtn.isMouseOver(optwind)) {
-					speed += 0.10;
+					speed += 0.05;
 				}
 				if (ONbtn.isMouseOver(optwind)) {
 					FillCell.r = 19;

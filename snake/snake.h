@@ -1,7 +1,9 @@
 #pragma once
 #include <iostream>
+#include <vector>
 #include "snake_part.h"
 #define grow true
+
 class snake{
 private:
 	int way;
@@ -24,7 +26,7 @@ public:
 	void move_to_direction_grow(int W, bool G);
 	int get_length();
 	int get_way();
-	int* get_coord();
+	std::vector<int> get_coord();
 	void set_sn_speed_change(float S);
 	float get_sn_speed();
 	bool snake_dies();
