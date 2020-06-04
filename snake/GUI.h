@@ -137,7 +137,7 @@ int main_win_gui() {
 int new_game_started() {
 	//main game window options
 	sf::RenderWindow gswind(sf::VideoMode(1024, 768), "GAME STARTED");
-	gswind.setFramerateLimit(60);
+	gswind.setFramerateLimit(120);
 	//-----btns
 	//-----rtrn btn
 	Button retbtn("->RETURN<-", { 105, 55 }, 50, DarkGray, TEXTS);
@@ -162,6 +162,15 @@ int new_game_started() {
 	sf::Sprite diesprite;
 	diesprite.setTexture(diestexture);
 	diesprite.setPosition(265, 150);
+	//wasted logo (if win)
+	//-----------1------------
+	sf::Image winsnake;
+	winsnake.loadFromFile(".//img//game_over.png");
+	sf::Texture wintexture;
+	wintexture.loadFromImage(winsnake);
+	sf::Sprite winsprite;
+	winsprite.setTexture(wintexture);
+	winsprite.setPosition(205, 150);
 	//--------------
 	//game INIT && init opt
 	game testgame;
@@ -185,6 +194,30 @@ int new_game_started() {
 			}
 			if (!MAINAPPLE.get_apple_alive_status()) {
 				MAINAPPLE.set_apple_coord(randomap.irnd(64), randomap.irnd(64));
+			}
+			if (testgame.SNAKEMAIN->get_length() == 2222) {
+				gswind.draw(winsprite);
+				move = 0;
+				gswind.display();
+				while (gswind.pollEvent(gsev)) {
+					if (gsev.type == sf::Event::Closed) {
+						move = 0;
+						gswind.close();
+						main_win_gui();
+					}
+					if (gsev.type == sf::Event::KeyPressed) {
+						move = 0;
+						gswind.close();
+						main_win_gui();
+					}
+					if (gsev.type == sf::Event::MouseButtonPressed) {
+						if (retbtn.isMouseOver(gswind)) {
+							move = 0;
+							gswind.close();
+							main_win_gui();
+						}
+					}
+				}
 			}
 		}
 		else {
@@ -444,8 +477,8 @@ int ABOUT() {
 	//game window text
 	sf::Font abtxt;
 	abtxt.loadFromFile(".//fonts//AGENCYB.TTF");
-	sf::Text sometxt("|  Some thnx to all  |", abtxt, 50);
-	sometxt.setStyle(sf::Text::Italic);
+	sf::Text sometxt("| ABOUT |", abtxt, 50);
+	sometxt.setStyle(sf::Text::Underlined);
 	sometxt.setFillColor(TEXTS);
 	sometxt.setPosition(200, 100);
 
