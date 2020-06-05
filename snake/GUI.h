@@ -19,6 +19,8 @@ int ABOUT();
 //----------------
 //snake options
 double speed = 0;
+int SCORE = 0;
+int SCOREMORE = 1;
 //---------------
 //snake move parametrs and speed
 int move = 0;
@@ -180,6 +182,11 @@ int new_game_started() {
 	//------------------
 	//main loop for window
 	while (gswind.isOpen()) {
+		//score
+		sf::Text scoretxt("SCORE\n" + std::to_string(SCORE), LOGOfont, 20);
+		scoretxt.setFillColor(TEXTS);
+		scoretxt.setPosition(50, 100);
+		//-------------
 		sf::Event gsev;
 		//time to move snake and fnc to check DIE snake
 		if (testgame.SNAKEMAIN->snake_dies()) {
@@ -188,9 +195,9 @@ int new_game_started() {
 				if (appleGOT) {
 					appleGOT = 0;
 					MAINAPPLE.set_apple_alive_status(0);
+					SCORE += SCOREMORE + 1;
 				}
 				snclock.restart();
-				
 			}
 			if (!MAINAPPLE.get_apple_alive_status()) {
 				MAINAPPLE.set_apple_coord(randomap.irnd(64), randomap.irnd(64));
@@ -201,17 +208,20 @@ int new_game_started() {
 				gswind.display();
 				while (gswind.pollEvent(gsev)) {
 					if (gsev.type == sf::Event::Closed) {
+						SCORE = 0;
 						move = 0;
 						gswind.close();
 						main_win_gui();
 					}
 					if (gsev.type == sf::Event::KeyPressed) {
+						SCORE = 0;
 						move = 0;
 						gswind.close();
 						main_win_gui();
 					}
 					if (gsev.type == sf::Event::MouseButtonPressed) {
 						if (retbtn.isMouseOver(gswind)) {
+							SCORE = 0;
 							move = 0;
 							gswind.close();
 							main_win_gui();
@@ -222,21 +232,25 @@ int new_game_started() {
 		}
 		else {
 			gswind.draw(diesprite);
+			SCORE = 0;
 			move = 0;
 			gswind.display();
 			while (gswind.pollEvent(gsev)) {
 				if (gsev.type == sf::Event::Closed) {
+					SCORE = 0;
 					move = 0;
 					gswind.close();
 					main_win_gui();
 				}
 				if (gsev.type == sf::Event::KeyPressed) {
+					SCORE = 0;
 					move = 0;
 					gswind.close();
 					main_win_gui();
 				}
 				if (gsev.type == sf::Event::MouseButtonPressed) {
 					if (retbtn.isMouseOver(gswind)) {
+						SCORE = 0;
 						move = 0;
 						gswind.close();
 						main_win_gui();
@@ -246,6 +260,7 @@ int new_game_started() {
 		}
 		while (gswind.pollEvent(gsev)) {
 			if (gsev.type == sf::Event::Closed) {
+				SCORE = 0;
 				move = 0;
 				gswind.close();
 				testgame.SNAKEMAIN->move_to_direction_grow(0, 0);
@@ -254,6 +269,7 @@ int new_game_started() {
 			}
 			if (gsev.type == sf::Event::KeyPressed) {
 				if (gsev.key.code == sf::Keyboard::Escape) {
+					SCORE = 0;
 					move = 0;
 					gswind.close();
 					testgame.SNAKEMAIN->move_to_direction_grow(0, 0);
@@ -326,6 +342,7 @@ int new_game_started() {
 			}
 		}
 		gswind.clear(DarkGray);
+		gswind.draw(scoretxt);
 		gswind.draw(sometxt);
 		retbtn.drawTo(gswind);
 		gswind.draw(testgame);
@@ -407,9 +424,11 @@ int OPTIONS() {
 				}
 				if (plusbtn.isMouseOver(optwind)) {
 					speed -= 0.05;
+					SCOREMORE += 5;
 				}
 				if (minusbtn.isMouseOver(optwind)) {
 					speed += 0.05;
+					SCOREMORE -= 5;
 				}
 				if (ONbtn.isMouseOver(optwind)) {
 					FillCell.r = 19;
@@ -466,6 +485,7 @@ int OPTIONS() {
 int ABOUT() {
 	//main game window options
 	sf::RenderWindow aboutwind(sf::VideoMode(1024, 768), "ABOUT");
+	aboutwind.setFramerateLimit(60);
 	//-----btns
 	//-----rtrn btn
 	Button retbtn("->RETURN<-", { 105, 55 }, 50, DarkGray, TEXTS);
@@ -481,33 +501,30 @@ int ABOUT() {
 	sometxt.setPosition(430, 100);
 	//----------------
 	//thnx
-	sf::Color thnx(sf::Color::Black);
-	sf::Text thnxtxt("This is simple SNAKE game on pure C++, with use SFML lib for graphics part.\n For that in my level ill spend about ~30 hourse, nice work as i think.\n So a few THNXis for my friends for help:", LOGOfont, 25);
+	sf::Color thnx(0,0,0,255);
+	sf::Text thnxtxt("This is simple SNAKE game on pure C++, with use SFML lib for graphics part.\n For that in my level ill spend about ~30 hourse, nice work as i think.\n So a few THNXis for my friends and family for help:", LOGOfont, 25);
 	thnxtxt.setFillColor(thnx);
-	thnxtxt.setStyle(sf::Text::Italic);
+	thnxtxt.setStyle(sf::Text::Bold);
 	thnxtxt.setPosition(180, 200);
 	//main loop for window
 	//thnx
-	sf::Text namestxt("I. Platov Anton aka.bug - for help with clases logic build and random class\nII. gim(@gim) https://twitter.com/gim?s=03 for help with choose of graphics lib\nIII. Popovich A - For beta testing and fresh mind\nIV. aka.13\n...Game by Poltavskiy Nick aka.Dies_Irae...", LOGOfont, 25);
+	sf::Text namestxt("I. Platov Anton aka.bug for help with clases logic build and random class\nII. gim(@gim) https://twitter.com/gim?s=03 for help with choose of graphics lib\nIII. Popovich A. For beta testing and fresh mind\nIV. Malutin A. aka.13 for his persistence in study of C/C++\nV. All twitter #programming, #100DaysOfCode and #cplusplus society for they support\n...Game by Poltavskiy Nick aka.Dies_Irae...", LOGOfont, 25);
 	namestxt.setFillColor(thnx);
-	namestxt.setStyle(sf::Text::Bold);
-	namestxt.setPosition(185, 300);
+	namestxt.setPosition(185, 320);
+	sf::Color F;
+	F = thnxtxt.getFillColor();
+	bool fadeout = 1;
+	//--------------
+	//snake sym
+	sf::Color logoC(0, 0, 0, 255);
+	sf::Text snakeLtxt("~~~~~:<    @", LOGOfont, 40);
+	snakeLtxt.setFillColor(logoC);
+	snakeLtxt.setPosition(435, 530);
+	sf::Color FRGB;
+	FRGB = snakeLtxt.getFillColor();
+	bool rgbCH = 0;
 	//main loop for window
 	while (aboutwind.isOpen()) {
-		if (thnx.r < 255) {
-			thnx.r+= 50;
-			thnx.g += 50;
-			thnx.b += 50;
-			thnx.a += 50;
-
-		}
-		else {
-			thnx.r -= 50;
-			thnx.g -= 50;
-			thnx.b -= 50;
-			thnx.a -= 50;
-
-		}
 		sf::Event abev;
 		while (aboutwind.pollEvent(abev)) {
 			if (abev.type == sf::Event::Closed) {
@@ -526,7 +543,50 @@ int ABOUT() {
 				}
 			}
 		}
+		//----------------
+		if (fadeout) {
+			F.a -= 5;
+			if (F.a <= 0) {
+				fadeout = false;
+			}
+		}
+		if(!fadeout) {
+			F.a += 5;
+			if (F.a >= 225) {
+				fadeout = true;
+			}
+		}
+		//----------------
+		if (rgbCH) {
+			FRGB.r -= 5;
+			if (FRGB.r <= 0) {
+				FRGB.g -= 5;
+				if (FRGB.g <= 0) {
+					FRGB.b -= 5;
+					if (FRGB.b <= 0) {
+						rgbCH = false;
+					}
+				}
+			}
+		}
+		if (!rgbCH) {
+			FRGB.r += 5;
+			if (FRGB.r >= 225) {
+				FRGB.g += 5;
+				if (FRGB.g >= 255) {
+					FRGB.b += 5;
+					if (FRGB.b >= 255) {
+						rgbCH = true;
+					}
+				}
+			}
+		}
+		//----------------
+		snakeLtxt.setFillColor(FRGB);
+		namestxt.setFillColor(F);
+		//----------------
 		aboutwind.clear(DarkGray);
+		aboutwind.draw(snakeLtxt);
 		aboutwind.draw(thnxtxt);
 		aboutwind.draw(namestxt);
 		aboutwind.draw(sometxt);
